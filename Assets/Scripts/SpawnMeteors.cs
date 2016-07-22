@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class SpawnMeteors : MonoBehaviour {
-
-	public GameObject meteorPrefab;
 	
 	// Borders
 	public Transform borderTop;
@@ -11,27 +11,34 @@ public class SpawnMeteors : MonoBehaviour {
 	public Transform borderLeft;
 	public Transform borderRight;
 
+	public GameObject meteorPrefab;
+
+	public List<GameObject> meteorList; 
+
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating ("Spawn", 2, 2);
+		meteorPrefab = Instantiate (Resources.Load("Sprites/MeteorPrefab")) as GameObject; // must change later!
+		InvokeRepeating ("Spawn", 2, 2); 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		// Spawn meteor every 4 seconds, starting in 3
-		//InvokeRepeating("Spawn", 3, 4);
+		//Spawn ();
 	}
 
 	// Spawn one piece of food
 	void Spawn() {
-		//Debug.Log ("spawned");
+		Debug.Log ("spawned");
+
+		//GameObject meteorPrefab = Instantiate (Resources.Load("Sprites/MeteorPrefab")) as GameObject; // must change later!
+		//meteorGO = (GameObject) Resources.Load ("/Users/gary/shape_shaker/shape_shaker/Assets/Sprites/MeteorPrefab.prefab"); // must change later!
+
 		// x position between left & right border
 		int x = (int)Random.Range (borderLeft.position.x,
 			        borderRight.position.x);
 
 		// y position between top & bottom border
-		int y = (int)Random.Range (borderBottom.position.y,
-			        borderTop.position.y);
+		int y = (int)Random.Range (borderBottom.position.y, borderTop.position.y);
 
 		// Instantiate the food at (x, y)
 		Vector2 start1 = new Vector2 (borderLeft.position.x, y);
@@ -48,5 +55,8 @@ public class SpawnMeteors : MonoBehaviour {
 			Instantiate (meteorPrefab, start3, Quaternion.identity);
 		else
 			Instantiate (meteorPrefab, start4, Quaternion.identity); 
+
+		meteorList.Add (meteorPrefab);
+
 	}
 }
