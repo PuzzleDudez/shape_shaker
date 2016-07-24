@@ -7,11 +7,9 @@ public class MeteorBehavior : MonoBehaviour {
 	float count = 0;
 	bool shouldMove = true; 
 
-
 	// Use this for initialization
 	void Start () {
-		//Renderer rend = GetComponent<Renderer>();
-		//rend.material.SetColor ("_SpecColor", Color.red);
+
 		ran = Random.Range (1,5);
 		if (ran == 1) {
 			gameObject.GetComponent<Renderer> ().material.color = Color.green;
@@ -26,37 +24,39 @@ public class MeteorBehavior : MonoBehaviour {
 			gameObject.GetComponent<Renderer> ().material.color = Color.magenta;
 			gameObject.tag = "magenta"; 
 		}
-
-		//var joint = gameObject.AddComponent<FixedJoint2D>();
+			
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (shouldMove) {
 			Vector3 pos = transform.position;
-			//Debug.Log (pos);
-			transform.Translate (-pos * (Time.deltaTime), Camera.main.transform); // denominator controls speed
+			// move meteor toward origin
+			transform.Translate (-pos * (Time.deltaTime), Camera.main.transform); // time controls speed
 		}
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) { 
 
-		if (coll.transform.name == "Circle")
+		//if (coll.gameObject.tag == "planetoid")
 			shouldMove = false; 
 
-		if (this.tag == coll.gameObject.tag) { //vcoll.transform.name == "MeteorPrefab(Clone)" && 
+		if (this.tag == coll.gameObject.tag) { 
 			count++;
-			Debug.Log (count);
+			//Debug.Log (count);
 
-			//if (count >= 3) {
-				//Destroy (this.gameObject);
-				//Destroy (coll.gameObject);
-			//}
+			// if same colors collide, kill em
+			Destroy (this.gameObject);
+			Destroy (coll.gameObject);
 		}
+			
+		if (coll.gameObject.tag != "planetoid") {
 
-		var joint = gameObject.AddComponent<FixedJoint2D>();
-		joint.connectedBody = coll.rigidbody;
+			var joint = gameObject.AddComponent<SpringJoint2D> ();
+			joint.connectedBody = coll.rigidbody;
+			joint.distance = 0.5f;		// make spring short
+			joint.frequency = 1000000;	// minimum springiness
 
+		}
 	}
-
 }

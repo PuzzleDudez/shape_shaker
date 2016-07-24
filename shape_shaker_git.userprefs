@@ -1,6 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RotateCircle.cs">
+    <Files>
+      <File FileName="Assets/Scripts/MeteorBehavior.cs" Line="35" Column="81" />
+      <File FileName="Assets/Scripts/SpawnMeteors.cs" Line="34" Column="77" />
+      <File FileName="Assets/Scripts/RotateCircle.cs" Line="32" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
